@@ -1,0 +1,130 @@
+interface IconProps {
+  className?: string;
+}
+
+export function ShieldIcon({ className = "h-9 w-9" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 2.5 4.5 5.5v5.5c0 4.75 3.25 9 7.5 10.5 4.25-1.5 7.5-5.75 7.5-10.5V5.5L12 2.5z" />
+    </svg>
+  );
+}
+
+export function BoxIcon({ className = "h-9 w-9" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 3 3 7.5v9L12 21l9-4.5v-9L12 3z" />
+      <path d="M12 12 21 7.5M12 12v9M12 12 3 7.5" />
+    </svg>
+  );
+}
+
+export function AirplaneIcon({ className = "h-9 w-9" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M16.5 3 7 12l-3.5-1.5L2 14l8.5 2.5L13 22l3.5-8.5L22 12l-5.5-3.5L16.5 3z" />
+    </svg>
+  );
+}
+
+export function GridIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  );
+}
+
+export function DiamondIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 3h12l4 7-10 11L2 10l4-7z" />
+      <path d="M2 10h20M12 21 6 3M12 21l6-18" />
+    </svg>
+  );
+}
+
+export function BriefcaseIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <path d="M3 12h18" />
+    </svg>
+  );
+}
+
+export function ShoppingBagIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 8h12l-1 12H7L6 8z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  );
+}
