@@ -1,5 +1,6 @@
 "use client";
 
+//Imports
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ExpandIcon, ShoppingBagIcon } from "@/components/ui/icons";
@@ -256,11 +257,10 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
                 {product.images.map((image, imageIndex) => (
                   <span
                     key={image.src}
-                    className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
-                      imageIndex === slide.index
+                    className={`h-1.5 rounded-full transition-all duration-300 ease-out ${imageIndex === slide.index
                         ? "w-5 bg-accent"
                         : "w-1.5 bg-foreground/30"
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
