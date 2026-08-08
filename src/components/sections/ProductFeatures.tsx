@@ -14,7 +14,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger);
 
 const FEATURE_IMAGE_SIZES =
-  "(max-width: 640px) calc(100vw - 2rem), (max-width: 1024px) calc((100vw - 3rem) / 2), 320px";
+  "(max-width: 640px) 384px, (max-width: 1024px) 360px, 304px";
 
 export function ProductFeatures() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -69,15 +69,15 @@ export function ProductFeatures() {
           data-features-header
           className="mx-auto max-w-2xl text-center"
         >
-          <SectionEyebrow>THE DETAILS</SectionEyebrow>
+          <SectionEyebrow>THE BUILD</SectionEyebrow>
           <h2
             id="features-heading"
             className="mt-5 text-[clamp(1.75rem,3vw,2.25rem)] font-bold leading-[1.12] tracking-[-0.025em] text-foreground"
           >
-            Product Features
+            Built for Everyday Use
           </h2>
           <p className="mt-4 text-[15px] leading-[1.65] text-muted">
-            Everything you need in a vial storage case.
+            Practical details designed to make each case secure, durable and easy to use.
           </p>
         </div>
 
@@ -88,7 +88,7 @@ export function ProductFeatures() {
               data-feature-card
               className="flex h-full flex-col overflow-hidden rounded-xl border border-[#e8e8e8] bg-background shadow-[0_8px_24px_rgba(0,0,0,0.04)]"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
+              <div className="relative aspect-[840/704] w-full overflow-hidden">
                 <Image
                   src={feature.image}
                   alt={feature.imageAlt}
@@ -96,7 +96,7 @@ export function ProductFeatures() {
                   height={feature.imageHeight}
                   sizes={FEATURE_IMAGE_SIZES}
                   quality={80}
-                  className="h-full w-full object-fill"
+                  className="h-full w-full object-cover"
                 />
               </div>
 

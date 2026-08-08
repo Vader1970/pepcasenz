@@ -40,17 +40,16 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-5 max-w-sm text-[15px] leading-[1.65] text-muted">
-              Premium storage solutions for your peptides and medications.
-              Built for security. Designed for life.
+              Practical storage cases for vials, pens and everyday supplies.
             </p>
           </div>
 
           <div className="md:text-right">
             <h2 className="text-[clamp(1.25rem,2.5vw,1.5rem)] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
-              Have questions or need assistance?
+              Not sure which case suits you?
             </h2>
             <p className="mt-3 text-[15px] leading-[1.65] text-muted">
-              We&apos;d love to hear from you.
+              Tell us what you need to carry and we&apos;ll help you choose.
             </p>
             <div className="mt-6 md:flex md:justify-end">
               <ContactButton />

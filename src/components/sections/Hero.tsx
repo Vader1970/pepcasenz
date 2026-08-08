@@ -77,8 +77,7 @@ export function Hero() {
               data-hero-paragraph
               className="hero-enter mt-3 max-w-[430px] text-[0.95rem] leading-[1.55] text-muted sm:mt-4 sm:text-base sm:leading-[1.65] md:mt-5 md:text-[17px] lg:mt-6"
             >
-              Keep your peptide and medication vials organised, protected, and
-              always within reach - at home or on the go.
+              Keep your peptide and medication vials organised, protected, and always within reach - whether you&apos;re at home or on the go.
             </p>
 
             <div data-hero-button className="hero-enter mt-4 sm:mt-5 md:mt-6 lg:mt-7">

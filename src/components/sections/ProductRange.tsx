@@ -70,7 +70,7 @@ export function ProductRange() {
             Product Range
           </h2>
           <p className="mt-4 text-[15px] leading-[1.65] text-muted">
-            Explore our storage options and everyday carry solutions.
+            Choose the size and layout that suits the way you store and carry your supplies.
           </p>
         </div>
 
