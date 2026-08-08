@@ -41,7 +41,7 @@ export function AirplaneIcon({ className = "h-9 w-9" }: IconProps) {
   return (
     <svg
       className={className}
-      viewBox="0 0 24 24"
+      viewBox="0 0 26 26"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
@@ -49,7 +49,7 @@ export function AirplaneIcon({ className = "h-9 w-9" }: IconProps) {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M16.5 3 7 12l-3.5-1.5L2 14l8.5 2.5L13 22l3.5-8.5L22 12l-5.5-3.5L16.5 3z" />
+      <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
     </svg>
   );
 }
@@ -125,6 +125,57 @@ export function ShoppingBagIcon({ className = "h-5 w-5" }: IconProps) {
     >
       <path d="M6 8h12l-1 12H7L6 8z" />
       <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  );
+}
+
+export function ChevronLeftIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M15 5.5 8.5 12 15 18.5" />
+    </svg>
+  );
+}
+
+export function ChevronRightIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M9 5.5 15.5 12 9 18.5" />
+    </svg>
+  );
+}
+
+export function CloseIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 6l12 12M18 6 6 18" />
     </svg>
   );
 }

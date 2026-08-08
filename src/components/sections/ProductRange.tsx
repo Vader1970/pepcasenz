@@ -1,13 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Container } from "@/components/layout/Container";
 import { SectionEyebrow } from "@/components/ui/SectionEyebrow";
-import { ShoppingBagIcon } from "@/components/ui/icons";
+import { ProductRangeCard } from "@/components/sections/ProductRangeCard";
 import { productRange } from "@/data/productRange";
 import { prefersReducedMotion } from "@/lib/motion";
 
@@ -77,34 +76,7 @@ export function ProductRange() {
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-4 lg:gap-6">
           {productRange.map((product) => (
-            <article
-              key={product.title}
-              data-range-card
-              className="flex h-full flex-col overflow-hidden rounded-xl border border-[#e8e8e8] bg-background shadow-[0_8px_24px_rgba(0,0,0,0.04)]"
-            >
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
-                <Image
-                  src={product.image}
-                  alt={product.imageAlt}
-                  width={1024}
-                  height={1024}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="h-full w-full object-contain"
-                />
-              </div>
-
-              <div className="flex flex-1 flex-col p-5">
-                <div className="mb-3.5 flex h-[42px] w-[42px] items-center justify-center rounded-[7px] bg-[#f5f5f5] text-foreground">
-                  <ShoppingBagIcon />
-                </div>
-                <h3 className="text-lg font-semibold leading-[1.3] text-foreground">
-                  {product.title}
-                </h3>
-                <p className="mt-2 text-[15px] leading-[1.65] text-muted">
-                  {product.description}
-                </p>
-              </div>
-            </article>
+            <ProductRangeCard key={product.title} product={product} />
           ))}
         </div>
       </Container>

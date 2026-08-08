@@ -8,9 +8,11 @@ import { ProductRange } from "@/components/sections/ProductRange";
 export default function Home() {
   return (
     <>
-      <Header />
-      <main>
+      <div className="flex h-svh flex-col overflow-hidden">
+        <Header />
         <Hero />
+      </div>
+      <main>
         <Benefits />
         <ProductFeatures />
         <ProductRange />

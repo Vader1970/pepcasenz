@@ -13,6 +13,9 @@ import { prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const FEATURE_IMAGE_SIZES =
+  "(max-width: 640px) calc(100vw - 2rem), (max-width: 1024px) calc((100vw - 3rem) / 2), 320px";
+
 export function ProductFeatures() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -91,8 +94,9 @@ export function ProductFeatures() {
                   alt={feature.imageAlt}
                   width={feature.imageWidth}
                   height={feature.imageHeight}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="h-full w-full object-cover"
+                  sizes={FEATURE_IMAGE_SIZES}
+                  quality={80}
+                  className="h-full w-full object-fill"
                 />
               </div>
 
