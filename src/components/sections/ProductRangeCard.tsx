@@ -105,7 +105,7 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
       >
         <button
           type="button"
-          className="flex h-full w-full flex-col text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="flex h-full w-full cursor-pointer flex-col text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           onClick={() => {
             setExtrasReady(true);
             setLightboxOpen(true);
@@ -148,6 +148,26 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
                 </div>
               );
             })}
+
+            {imageCount > 1 ? (
+              <div
+                aria-hidden="true"
+                className={`pointer-events-none absolute inset-x-0 bottom-3 z-10 flex items-center justify-center gap-1.5 transition-opacity duration-300 ease-out ${
+                  hovered ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {product.images.map((image, imageIndex) => (
+                  <span
+                    key={image.src}
+                    className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
+                      imageIndex === slide.index
+                        ? "w-5 bg-accent"
+                        : "w-1.5 bg-foreground/30"
+                    }`}
+                  />
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div className="flex flex-1 flex-col p-5">
