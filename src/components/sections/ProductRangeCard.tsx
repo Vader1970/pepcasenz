@@ -155,7 +155,7 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
 
     if (Math.abs(delta) >= SWIPE_THRESHOLD_PX) {
       swipedRef.current = true;
-      if (delta < 0) {
+      if (delta > 0) {
         goNext(true);
       } else {
         goPrev(true);
