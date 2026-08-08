@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
 import Image from "next/image";
 import { ExpandIcon, ShoppingBagIcon } from "@/components/ui/icons";
 import { ProductImageLightbox } from "@/components/ui/ProductImageLightbox";
@@ -16,17 +16,20 @@ const SWIPE_TRANSITION_MS = 300;
 const HOLD_MS = 1000;
 const CYCLE_MS = TRANSITION_MS + HOLD_MS;
 const SWIPE_THRESHOLD_PX = 40;
+const SWIPE_INTENT_PX = 10;
 
 interface SlideState {
   index: number;
   prevIndex: number;
   hasCycled: boolean;
+  slideDir: "next" | "prev";
 }
 
 const INITIAL_SLIDE: SlideState = {
   index: 0,
   prevIndex: 0,
   hasCycled: false,
+  slideDir: "next",
 };
 
 export function ProductRangeCard({ product }: ProductRangeCardProps) {
@@ -39,8 +42,13 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
     interval?: number;
     paint?: number;
   }>({});
+  const imageZoneRef = useRef<HTMLDivElement>(null);
   const pointerStartX = useRef<number | null>(null);
+  const pointerStartY = useRef<number | null>(null);
+  const horizontalSwipeRef = useRef(false);
   const swipedRef = useRef(false);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const touchHorizontalRef = useRef(false);
   const reduceMotion = usePrefersReducedMotion();
   const isTouchLayout = useTouchLayout();
   const imageCount = product.images.length;
@@ -49,33 +57,111 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
 
   const goNext = useCallback(
     (fast = false) => {
-      setSlide((current) => {
-        const nextIndex = (current.index + 1) % imageCount;
-        setTransitionMs(fast ? SWIPE_TRANSITION_MS : TRANSITION_MS);
-        return {
-          prevIndex: current.index,
-          index: nextIndex,
-          hasCycled: true,
-        };
-      });
+      setTransitionMs(fast ? SWIPE_TRANSITION_MS : TRANSITION_MS);
+      setSlide((current) => ({
+        prevIndex: current.index,
+        index: (current.index + 1) % imageCount,
+        hasCycled: true,
+        slideDir: "next",
+      }));
     },
     [imageCount],
   );
 
   const goPrev = useCallback(
     (fast = false) => {
-      setSlide((current) => {
-        const nextIndex = (current.index - 1 + imageCount) % imageCount;
-        setTransitionMs(fast ? SWIPE_TRANSITION_MS : TRANSITION_MS);
-        return {
-          prevIndex: current.index,
-          index: nextIndex,
-          hasCycled: true,
-        };
-      });
+      setTransitionMs(fast ? SWIPE_TRANSITION_MS : TRANSITION_MS);
+      setSlide((current) => ({
+        prevIndex: current.index,
+        index: (current.index - 1 + imageCount) % imageCount,
+        hasCycled: true,
+        slideDir: "prev",
+      }));
     },
     [imageCount],
   );
+
+  const applySwipe = useCallback(
+    (deltaX: number) => {
+      if (deltaX <= -SWIPE_THRESHOLD_PX) {
+        swipedRef.current = true;
+        goNext(true);
+      } else if (deltaX >= SWIPE_THRESHOLD_PX) {
+        swipedRef.current = true;
+        goPrev(true);
+      }
+    },
+    [goNext, goPrev],
+  );
+
+  useEffect(() => {
+    if (!isTouchLayout || imageCount <= 1) return;
+
+    const el = imageZoneRef.current;
+    if (!el) return;
+
+    const onTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+      touchHorizontalRef.current = false;
+      swipedRef.current = false;
+    };
+
+    const onTouchMove = (event: TouchEvent) => {
+      const start = touchStartRef.current;
+      const touch = event.touches[0];
+      if (!start || !touch) return;
+
+      const deltaX = touch.clientX - start.x;
+      const deltaY = touch.clientY - start.y;
+
+      if (
+        !touchHorizontalRef.current &&
+        Math.abs(deltaX) > SWIPE_INTENT_PX &&
+        Math.abs(deltaX) > Math.abs(deltaY)
+      ) {
+        touchHorizontalRef.current = true;
+      }
+
+      if (touchHorizontalRef.current) {
+        event.preventDefault();
+      }
+    };
+
+    const onTouchEnd = (event: TouchEvent) => {
+      const start = touchStartRef.current;
+      if (!start) return;
+
+      const touch = event.changedTouches[0];
+      if (!touch) {
+        touchStartRef.current = null;
+        touchHorizontalRef.current = false;
+        return;
+      }
+
+      const deltaX = touch.clientX - start.x;
+      touchStartRef.current = null;
+
+      if (touchHorizontalRef.current) {
+        applySwipe(deltaX);
+      }
+
+      touchHorizontalRef.current = false;
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
+    el.addEventListener("touchcancel", onTouchEnd, { passive: true });
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener("touchcancel", onTouchEnd);
+    };
+  }, [applySwipe, imageCount, isTouchLayout]);
 
   useEffect(() => {
     const timers = timersRef.current;
@@ -138,28 +224,59 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
     }
   }
 
-  function handleImagePointerDown(clientX: number) {
-    if (!isTouchLayout || imageCount <= 1) return;
-    pointerStartX.current = clientX;
-    swipedRef.current = false;
-  }
-
-  function handleImagePointerUp(clientX: number) {
-    if (!isTouchLayout || imageCount <= 1 || pointerStartX.current === null) {
+  function handleImagePointerDown(event: PointerEvent<HTMLDivElement>) {
+    if (!isTouchLayout || imageCount <= 1 || event.pointerType === "touch") {
       return;
     }
 
-    const delta = clientX - pointerStartX.current;
-    pointerStartX.current = null;
+    pointerStartX.current = event.clientX;
+    pointerStartY.current = event.clientY;
+    horizontalSwipeRef.current = false;
+    swipedRef.current = false;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
 
-    if (Math.abs(delta) >= SWIPE_THRESHOLD_PX) {
-      swipedRef.current = true;
-      if (delta > 0) {
-        goNext(true);
-      } else {
-        goPrev(true);
-      }
+  function handleImagePointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (
+      pointerStartX.current === null ||
+      pointerStartY.current === null ||
+      event.pointerType === "touch"
+    ) {
+      return;
     }
+
+    const deltaX = event.clientX - pointerStartX.current;
+    const deltaY = event.clientY - pointerStartY.current;
+
+    if (
+      !horizontalSwipeRef.current &&
+      Math.abs(deltaX) > SWIPE_INTENT_PX &&
+      Math.abs(deltaX) > Math.abs(deltaY)
+    ) {
+      horizontalSwipeRef.current = true;
+    }
+  }
+
+  function handleImagePointerUp(event: PointerEvent<HTMLDivElement>) {
+    if (!isTouchLayout || imageCount <= 1 || event.pointerType === "touch") {
+      return;
+    }
+
+    if (pointerStartX.current === null) return;
+
+    const deltaX = event.clientX - pointerStartX.current;
+    pointerStartX.current = null;
+    pointerStartY.current = null;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    if (horizontalSwipeRef.current) {
+      applySwipe(deltaX);
+    }
+
+    horizontalSwipeRef.current = false;
   }
 
   function handleImageClick() {
@@ -171,6 +288,10 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
   }
 
   const affordanceVisible = "opacity-100";
+  const hiddenTranslate =
+    slide.slideDir === "next" ? "-translate-x-full" : "translate-x-full";
+  const outgoingTranslate =
+    slide.slideDir === "next" ? "translate-x-full" : "-translate-x-full";
 
   return (
     <>
@@ -187,6 +308,7 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
         }}
       >
         <div
+          ref={imageZoneRef}
           role="button"
           tabIndex={0}
           aria-label={`Browse and view images of ${product.title}`}
@@ -198,10 +320,18 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
               openLightbox();
             }
           }}
-          onPointerDown={(event) => handleImagePointerDown(event.clientX)}
-          onPointerUp={(event) => handleImagePointerUp(event.clientX)}
-          onPointerCancel={() => {
-            pointerStartX.current = null;
+          onPointerDown={handleImagePointerDown}
+          onPointerMove={handleImagePointerMove}
+          onPointerUp={handleImagePointerUp}
+          onPointerCancel={(event) => {
+            if (!horizontalSwipeRef.current) {
+              pointerStartX.current = null;
+              pointerStartY.current = null;
+            }
+
+            if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            }
           }}
         >
           {visibleImages.map((image, imageIndex) => {
@@ -209,9 +339,9 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
             const isOutgoing =
               slide.hasCycled && imageIndex === slide.prevIndex && !isActive;
 
-            let translate = "-translate-x-full";
+            let translate = hiddenTranslate;
             if (isActive) translate = "translate-x-0";
-            else if (isOutgoing) translate = "translate-x-full";
+            else if (isOutgoing) translate = outgoingTranslate;
 
             const zIndex = isOutgoing ? 3 : isActive ? 1 : 0;
 
@@ -256,10 +386,11 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
                 {product.images.map((image, imageIndex) => (
                   <span
                     key={image.src}
-                    className={`h-1.5 rounded-full transition-all duration-300 ease-out ${imageIndex === slide.index
-                      ? "w-5 bg-accent"
-                      : "w-1.5 bg-foreground/30"
-                      }`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
+                      imageIndex === slide.index
+                        ? "w-5 bg-accent"
+                        : "w-1.5 bg-foreground/30"
+                    }`}
                   />
                 ))}
               </div>

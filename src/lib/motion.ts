@@ -21,13 +21,21 @@ export function usePrefersReducedMotion(): boolean {
 
 function isTouchLayout(): boolean {
   if (typeof window === "undefined") return false;
-  return window.matchMedia("(max-width: 1023px)").matches;
+  return window.matchMedia(
+    "(max-width: 1023px), (hover: none) and (pointer: coarse)",
+  ).matches;
 }
 
 function subscribeTouchLayout(onStoreChange: () => void) {
-  const media = window.matchMedia("(max-width: 1023px)");
-  media.addEventListener("change", onStoreChange);
-  return () => media.removeEventListener("change", onStoreChange);
+  const narrow = window.matchMedia("(max-width: 1023px)");
+  const coarse = window.matchMedia("(hover: none) and (pointer: coarse)");
+  const notify = () => onStoreChange();
+  narrow.addEventListener("change", notify);
+  coarse.addEventListener("change", notify);
+  return () => {
+    narrow.removeEventListener("change", notify);
+    coarse.removeEventListener("change", notify);
+  };
 }
 
 export function useTouchLayout(): boolean {
