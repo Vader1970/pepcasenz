@@ -7,7 +7,7 @@ interface LogoProps {
 export function Logo({ className = "" }: LogoProps) {
   return (
     <Image
-      src="/images/pep-case-logo.png"
+      src="/images/pep-case-nz-logo.png"
       alt="PEP CASE NZ — Storage Solutions"
       width={580}
       height={143}

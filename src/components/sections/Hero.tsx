@@ -9,6 +9,9 @@ import { ContactButton } from "@/components/ui/ContactButton";
 import { SectionEyebrow } from "@/components/ui/SectionEyebrow";
 import { prefersReducedMotion } from "@/lib/motion";
 
+const HERO_IMAGE_SIZES =
+  "(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 56vw";
+
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -47,12 +50,12 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="bg-background py-14 md:py-20 lg:py-24"
+      className="flex min-h-0 flex-1 flex-col bg-background"
       aria-labelledby="hero-heading"
     >
-      <Container>
-        <div className="grid min-h-0 items-center gap-10 lg:min-h-[520px] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16">
-          <div className="order-1 flex flex-col">
+      <Container className="flex min-h-0 flex-1 flex-col py-4 sm:py-6 lg:py-8">
+        <div className="grid min-h-0 flex-1 items-center gap-4 sm:gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-10 xl:gap-14">
+          <div className="order-1 flex min-h-0 flex-col justify-center">
             <div data-hero-eyebrow className="hero-enter">
               <SectionEyebrow>PREMIUM VIAL STORAGE</SectionEyebrow>
             </div>
@@ -60,7 +63,7 @@ export function Hero() {
             <h1
               id="hero-heading"
               data-hero-heading
-              className="hero-enter mt-5 text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[0.98] tracking-[-0.045em] text-foreground"
+              className="hero-enter mt-3 text-[clamp(1.75rem,4.2vh+0.85rem,4.5rem)] font-bold leading-[0.98] tracking-[-0.045em] text-foreground sm:mt-4 lg:mt-5"
             >
               Organised.
               <br />
@@ -72,29 +75,30 @@ export function Hero() {
 
             <p
               data-hero-paragraph
-              className="hero-enter mt-6 max-w-[430px] text-base leading-[1.65] text-muted md:mt-7 md:text-[17px]"
+              className="hero-enter mt-3 max-w-[430px] text-[0.95rem] leading-[1.55] text-muted sm:mt-4 sm:text-base sm:leading-[1.65] md:mt-5 md:text-[17px] lg:mt-6"
             >
               Keep your peptide and medication vials organised, protected, and
-              always within reach — at home or on the go.
+              always within reach - at home or on the go.
             </p>
 
-            <div data-hero-button className="hero-enter mt-7 md:mt-8">
+            <div data-hero-button className="hero-enter mt-4 sm:mt-5 md:mt-6 lg:mt-7">
               <ContactButton />
             </div>
           </div>
 
           <div
             data-hero-image
-            className="hero-enter order-2 mx-auto w-full max-w-[520px] lg:mx-0 lg:max-w-none lg:justify-self-end"
+            className="hero-enter order-2 mx-auto flex min-h-0 w-full max-w-[520px] items-center justify-center overflow-hidden rounded-xl lg:mx-0 lg:max-w-none lg:justify-self-end"
           >
             <Image
-              src="/images/hero.png"
+              src="/images/pepcasenz-hero.webp"
               alt="PEP CASE NZ open storage case with custom blue foam vial slots"
-              width={1024}
-              height={768}
+              width={1600}
+              height={1190}
               priority
-              sizes="(max-width: 1024px) 100vw, 56vw"
-              className="h-auto w-full object-contain"
+              sizes={HERO_IMAGE_SIZES}
+              quality={80}
+              className="h-auto max-h-[min(38svh,320px)] w-full object-contain sm:max-h-[min(40svh,380px)] lg:max-h-[min(62svh,560px)]"
             />
           </div>
         </div>
