@@ -13,6 +13,7 @@
   --border-light: #ededed;
 
   --accent: #f47a00;
+  --accent-text: #c25700;
 
   --button-background: #111111;
   --button-foreground: #ffffff;
@@ -28,6 +29,7 @@
   --color-border: var(--border);
   --color-border-light: var(--border-light);
   --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
   --color-button-background: var(--button-background);
   --color-button-foreground: var(--button-foreground);
   --font-sans: var(--font-archivo), Inter, Arial, Helvetica, sans-serif;

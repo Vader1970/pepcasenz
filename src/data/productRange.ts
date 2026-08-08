@@ -16,7 +16,7 @@ export const productRange: ProductRangeItem[] = [
   {
     title: "6-Vial Supply Case",
     description:
-      "Organised storage for six vials, wipes, syringes, and everyday essentials.",
+      "Stores six vials, wipes and syringes together, with room for the essentials you use most.",
     images: [
       {
         src: "/images/product-range/six-viral-supply-case-featured.webp",
@@ -41,7 +41,7 @@ export const productRange: ProductRangeItem[] = [
   {
     title: "3-Vial Travel Kit",
     description:
-      "Compact case for three vials, alcohol pads, and syringe storage.",
+      "Keeps three vials, alcohol pads and syringes together in a compact case made for travel.",
     images: [
       {
         src: "/images/product-range/three-viral-travel-kit-featured.webp",
@@ -66,7 +66,7 @@ export const productRange: ProductRangeItem[] = [
   {
     title: "Pen & Needle Holder",
     description:
-      "Securely carries an insulin pen and multiple needle caps.",
+      "Keeps your injection pen and spare needle caps together, organised and ready when needed.",
     images: [
       {
         src: "/images/product-range/pen-needle-holder-featured.webp",
@@ -91,7 +91,7 @@ export const productRange: ProductRangeItem[] = [
   {
     title: "6-Vial Hard Shell Case",
     description:
-      "Durable outer case with secure locking latches for six to eight vials.",
+      "Stores six vials, wipes and syringes in a tougher case with secure latches for added protection.",
     images: [
       {
         src: "/images/product-range/six-viral-hard-shell-featured.webp",

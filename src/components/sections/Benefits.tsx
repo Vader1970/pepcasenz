@@ -84,8 +84,7 @@ export function Benefits() {
               Safety &amp; Simplicity
             </h2>
             <p className="mt-5 max-w-md text-[15px] leading-[1.65] text-muted">
-              Our vial storage cases are made to keep your medication safe,
-              secure, and organised - whether at home or on the go.
+              Designed around the way you actually store and carry your supplies, with practical details that make everything easier to keep together.
             </p>
           </div>
 
@@ -94,8 +93,8 @@ export function Benefits() {
               key={benefit.title}
               data-benefit-item
               className={`flex flex-col py-2 lg:border-l lg:border-[#dddddd] lg:px-8 xl:px-10 ${index > 0
-                  ? "border-t border-[#dddddd] pt-8 lg:border-t-0 lg:pt-2"
-                  : ""
+                ? "border-t border-[#dddddd] pt-8 lg:border-t-0 lg:pt-2"
+                : ""
                 }`}
             >
               <BenefitIcon name={benefit.icon} />
