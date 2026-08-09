@@ -12,7 +12,7 @@ export function Logo({ className = "" }: LogoProps) {
       width={580}
       height={143}
       className={`h-auto w-[170px] max-w-[190px] object-contain object-left sm:w-[200px] md:max-w-[240px] ${className}`}
-      priority
+      loading="eager"
     />
   );
 }

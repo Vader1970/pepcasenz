@@ -94,7 +94,8 @@ export function Hero() {
               alt="PEP CASE NZ open storage case with custom blue foam vial slots"
               width={1600}
               height={1190}
-              priority
+              fetchPriority="high"
+              loading="eager"
               sizes={HERO_IMAGE_SIZES}
               quality={80}
               className="h-auto max-h-[min(38svh,320px)] w-full object-contain sm:max-h-[min(40svh,380px)] lg:max-h-[min(62svh,560px)]"
