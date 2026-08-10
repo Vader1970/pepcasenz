@@ -360,7 +360,7 @@ export function ProductRangeCard({ product }: ProductRangeCardProps) {
                   alt={image.alt}
                   width={image.width}
                   height={image.height}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 280px"
                   quality={80}
                   draggable={false}
                   className="h-full w-full object-contain p-2"

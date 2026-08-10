@@ -8,9 +8,10 @@ import { Container } from "@/components/layout/Container";
 import { ContactButton } from "@/components/ui/ContactButton";
 import { SectionEyebrow } from "@/components/ui/SectionEyebrow";
 import { prefersReducedMotion } from "@/lib/motion";
+import heroImage from "../../../public/images/pepcasenz-hero.webp";
 
 const HERO_IMAGE_SIZES =
-  "(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 56vw";
+  "(max-width: 640px) min(100vw, 430px), (max-width: 1024px) min(90vw, 520px), 640px";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -25,24 +26,22 @@ export function Hero() {
       const textItems = section.querySelectorAll(
         "[data-hero-eyebrow], [data-hero-heading], [data-hero-paragraph], [data-hero-button]",
       );
-      const image = section.querySelector("[data-hero-image]");
 
-      const hidden = { autoAlpha: 0, y: 18, force3D: true };
-      const visible = {
-        autoAlpha: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power2.out",
-        force3D: true,
-      };
-
-      const tl = gsap.timeline({ delay: 0.08 });
-
-      tl.fromTo(textItems, hidden, { ...visible, stagger: 0.14 });
-
-      if (image) {
-        tl.fromTo(image, hidden, { ...visible, duration: 1.35 }, 0.12);
-      }
+      gsap
+        .timeline({ delay: 0.06 })
+        .fromTo(
+          textItems,
+          { autoAlpha: 0, y: 12, force3D: true },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            stagger: 0.1,
+            force3D: true,
+            clearProps: "transform",
+          },
+        );
     },
     { scope: sectionRef },
   );
@@ -85,17 +84,13 @@ export function Hero() {
             </div>
           </div>
 
-          <div
-            data-hero-image
-            className="hero-enter order-2 mx-auto flex min-h-0 w-full max-w-[520px] items-center justify-center overflow-hidden rounded-xl lg:mx-0 lg:max-w-none lg:justify-self-end"
-          >
+          <div className="order-2 mx-auto flex min-h-0 w-full max-w-[520px] items-center justify-center overflow-hidden rounded-xl lg:mx-0 lg:max-w-none lg:justify-self-end">
             <Image
-              src="/images/pepcasenz-hero.webp"
+              src={heroImage}
               alt="PEP CASE NZ open storage case with custom blue foam vial slots"
-              width={1600}
-              height={1190}
               fetchPriority="high"
               loading="eager"
+              placeholder="blur"
               sizes={HERO_IMAGE_SIZES}
               quality={80}
               className="h-auto max-h-[min(38svh,320px)] w-full object-contain sm:max-h-[min(40svh,380px)] lg:max-h-[min(62svh,560px)]"
