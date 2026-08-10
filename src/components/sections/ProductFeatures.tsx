@@ -14,7 +14,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger);
 
 const FEATURE_IMAGE_SIZES =
-  "(max-width: 640px) 360px, (max-width: 1024px) 360px, 304px";
+  "(max-width: 640px) 360px, (max-width: 1024px) 300px, 304px";
 
 export function ProductFeatures() {
   const sectionRef = useRef<HTMLElement>(null);
