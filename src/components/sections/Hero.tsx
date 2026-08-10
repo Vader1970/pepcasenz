@@ -11,7 +11,7 @@ import { prefersReducedMotion } from "@/lib/motion";
 import heroImage from "../../../public/images/pepcasenz-hero.webp";
 
 const HERO_IMAGE_SIZES =
-  "(max-width: 640px) min(100vw, 430px), (max-width: 1024px) min(90vw, 520px), 640px";
+  "(max-width: 640px) 365px, (max-width: 1024px) 480px, 640px";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -92,7 +92,7 @@ export function Hero() {
               loading="eager"
               placeholder="blur"
               sizes={HERO_IMAGE_SIZES}
-              quality={80}
+              quality={75}
               className="h-auto max-h-[min(38svh,320px)] w-full object-contain sm:max-h-[min(40svh,380px)] lg:max-h-[min(62svh,560px)]"
             />
           </div>
