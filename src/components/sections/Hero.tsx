@@ -20,7 +20,8 @@ export function Hero() {
             <Image
               src={heroImage}
               alt="PEP CASE NZ open storage case with custom blue foam vial slots"
-              preload
+              fetchPriority="high"
+              loading="eager"
               sizes={HERO_IMAGE_SIZES}
               quality={75}
               className="h-auto max-h-[min(38svh,320px)] w-full object-contain sm:max-h-[min(40svh,380px)] lg:max-h-[min(62svh,560px)]"
